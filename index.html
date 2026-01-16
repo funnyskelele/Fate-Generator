@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fate Generator</title>
+<style>
+  body { font-family: Arial, sans-serif; text-align:center; background:#111; color:white; margin:0; padding:20px; }
+  #resultContainer { position: relative; width:400px; height:300px; margin:20px auto; border-radius:15px; overflow:hidden; box-shadow:0 0 15px rgba(0,0,0,0.5); }
+  #bg { width:100%; height:100%; object-fit:cover; }
+  #nameDisplay { position:absolute; top:20px; left:50%; transform:translateX(-50%); font-size:2rem; font-weight:bold; }
+  #resultText { position:absolute; bottom:30px; left:50%; transform:translateX(-50%); font-size:1.5rem; font-weight:bold; }
+  input, button { padding:10px; font-size:1rem; border-radius:5px; border:none; margin:5px; }
+  button { cursor:pointer; background:#28a745; color:white; }
+  @import url('https://fonts.googleapis.com/css2?family=Oswald&family=Roboto:wght@400;700&family=Permanent+Marker&display=swap');
+</style>
+</head>
+<body>
+
+<h1>Fate Generator</h1>
+<p>Enter a name and see their fate!</p>
+
+<input id="name" placeholder="Enter a name">
+<button onclick="generateOutcome()">Check Fate!</button>
+
+<div id="resultContainer">
+  <img id="bg" src="" alt="background">
+  <div id="nameDisplay"></div>
+  <div id="resultText"></div>
+</div>
+
+<script>
+const outcomes = [
+  {text:"will see the pearly gates", bg:"heaven.jpg", color:"yellow", font:"'Permanent Marker', cursive"},
+  {text:"has a ways to go before entering the pearly gates", bg:"neutral.jpg", color:"white", font:"'Roboto', sans-serif"},
+  {text:"will absolutely not see the pearly gates", bg:"fire.jpg", color:"red", font:"'Oswald', sans-serif"}
+];
+
+function generateOutcome(){
+  const name = document.getElementById("name").value || "Someone";
+  const outcome = outcomes[Math.floor(Math.random()*outcomes.length)];
+
+  // Update texts
+  const nameEl = document.getElementById("nameDisplay");
+  const resultEl = document.getElementById("resultText");
+  nameEl.innerText = name;
+  nameEl.style.color = outcome.color;
+  nameEl.style.fontFamily = outcome.font;
+
+  resultEl.innerText = outcome.text;
+  resultEl.style.color = outcome.color;
+  resultEl.style.fontFamily = outcome.font;
+
+  // Update background
+  document.getElementById("bg").src = outcome.bg;
+}
+</script>
+
+</body>
+</html>
